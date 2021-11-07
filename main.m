@@ -2,8 +2,11 @@
 % Title        : Simple Linear Regression
 % Author       : Azka Hariz
 % Date         : November 7, 2021
-% Code version : 1.2.1
+% Code version : 1.3
 % Availability : https://github.com/azkahariz/SimpleLinearRegression
+%
+% Please add the following citations if you use this code:
+% Hariz, A (2021) Simple Linear Regression (Version 1.2.1) [Source code]. https://github.com/azkahariz/SimpleLinearRegression
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear all, close all, clc
 
@@ -32,6 +35,7 @@ SSE = e'*e;                                   % Error sum of square
 SSR = sum((Beta0 + Beta1*Data.X - avg_y).^2); % Regression sum of square
 SST = SSE + SSR;                              % Total corrected sum of square
 var = SSE/(n-2);                              % Estimator of variance
+R_square = SSR/SST;                           % coefficient of determination
 
 %% Hypotesis Test in Simple Linear Regression
 MSR = SSR/1;               % Mean squares regression
@@ -64,7 +68,8 @@ y_max_pred     = Beta0 + Beta1*x0 + 2.101*sqrt(var*( 1 + (1/n) + (x0-avg_x).^2/S
 fprintf('Persamaan linear reggression:\n');
 fprintf('y = %.3f + %.3fx\n\n',Beta0,Beta1);
 
-fprintf('Nilai SSE: %.3f\nNilai SSR: %.3f\nNilai SST: %.3f\n\n',SSE,SSR,SST);
+fprintf('Nilai SSE: %.3f\nNilai SSR: %.3f\nNilai SST: %.3f\n',SSE,SSR,SST);
+fprintf('Coefficient of determination (R^2): %.3f\n\n',R_square);
 
 fprintf('Uji significance of regression Beta1 (F-Distribution):\n');
 fprintf('Nilai F0 : %.3f\n\n',F0);
@@ -82,7 +87,7 @@ fprintf('%.3f < y < %.3f\n\n', y_min_x0_conf, y_max_x0_conf);
 fprintf('Prediction intervals 95%% on the next observation x = %.3f:\n',x0_inp);
 fprintf('%.3f < y < %.3f\n', y_min_x0_pred, y_max_x0_pred);
 
-%% Plotting
+%% Plotting Figure 1 for regression line
 figure(1)
 p(1) = plot(Data.X,Data.Y,'*');
 hold on
@@ -97,7 +102,35 @@ hold on
 p(6) = plot(x0,y_max_pred,'--c');
 grid on
 
-% label
+% Label Figure 1
 xlabel('Hydrocarbon level (\%), $x$', 'Interpreter', 'Latex', 'FontSize', 12);  % Kasih nama label untuk sumbu x
 ylabel('Oxygen purity (\%), $y$', 'Interpreter', 'Latex', 'FontSize', 12);      % Kasih nama label untuk sumbu y
 legend(p([1 2 3 5]),'$y_{real}$','Regression Line ($\hat{\mu}_{Y}$)', 'Confidence Interval', 'Prediction Interval', 'Interpreter', 'Latex', 'FontSize',10);
+
+%% Plotting Figure 2 for residual
+figure(2)
+subplot(1,2,1)
+rx(1) = plot(Data.X,e,'*b');
+hold on
+tmp = 0.8:0.01:1.6;                 % Untuk span axis di sumbu x (bisa diganti sesuai kebutuhan)
+axis([min(tmp) max(tmp) -1.8 1.8]); % Bisa diubah sesuai kebutuhan
+rx(2) = plot(tmp,tmp*0,'-r');
+grid on
+
+% Label Sub-Plot 1
+xlabel('Hydrocarbon level (\%), $x$','Interpreter', 'Latex');
+ylabel('Residuals', 'Interpreter', 'Latex');
+title('Plot of residuals versus hydrocarbon level $x$','Interpreter','Latex');
+
+subplot(1,2,2)
+ry(1) = plot(Beta0 + Beta1*Data.X,e,'*b');
+hold on
+tmp = 86:0.01:100;                  % Untuk span axis di sumbu x (bisa diganti sesuai kebutuhan)
+axis([min(tmp) max(tmp) -2.5 2.5]); % Bisa diubah sesuai kebutuhan
+ry(2) = plot(tmp,tmp*0,'-r');
+grid on
+
+% Label Sub-Plot 2
+xlabel('Predicted value, $\hat{y}$','Interpreter', 'Latex');
+ylabel('Residuals', 'Interpreter', 'Latex');
+title('Plot of residuals versus predicted oxygen purity $\hat{y}$','Interpreter','Latex');
