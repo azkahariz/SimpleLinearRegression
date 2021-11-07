@@ -2,7 +2,7 @@
 % Title        : Simple Linear Regression
 % Author       : Azka Hariz
 % Date         : November 7, 2021
-% Code version : 1.2
+% Code version : 1.2.1
 % Availability : https://github.com/azkahariz/SimpleLinearRegression
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear all, close all, clc
@@ -79,7 +79,7 @@ fprintf('%.3f < B0 < %.3f\n\n', B0_min, B0_max);
 fprintf('Confidence intervals 95%% on the mean response x = %.3f:\n',x0_inp);
 fprintf('%.3f < y < %.3f\n\n', y_min_x0_conf, y_max_x0_conf);
 
-fprintf('Prediction intervals 95%% on the mean response x = %.3f:\n',x0_inp);
+fprintf('Prediction intervals 95%% on the next observation x = %.3f:\n',x0_inp);
 fprintf('%.3f < y < %.3f\n', y_min_x0_pred, y_max_x0_pred);
 
 %% Plotting
