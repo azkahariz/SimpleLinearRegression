@@ -6,7 +6,7 @@
 % Availability : https://github.com/azkahariz/SimpleLinearRegression
 %
 % Please add the following citations if you use this code:
-% Hariz, A (2021) Simple Linear Regression (Version 1.2.1) [Source code]. https://github.com/azkahariz/SimpleLinearRegression
+% Hariz, A (2021) Simple Linear Regression (Version 1.3) [Source code]. https://github.com/azkahariz/SimpleLinearRegression
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear all, close all, clc
 
